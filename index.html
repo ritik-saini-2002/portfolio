@@ -632,12 +632,11 @@
 </footer>
 
 <script>
-  // ---- Theme toggle (system preference default, in-memory override) ----
+  // ---- Theme toggle (always defaults to dark, in-memory override) ----
   const root = document.documentElement;
   const themeToggle = document.getElementById('themeToggle');
   const themeLabel = document.getElementById('themeLabel');
-  const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
-  let currentTheme = prefersLight ? 'light' : 'dark';
+  let currentTheme = 'dark';
   root.setAttribute('data-theme', currentTheme);
   themeLabel.textContent = currentTheme;
 
