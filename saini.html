@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ritik Saini — IT Support Engineer &amp; Android Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --font-mono:'JetBrains Mono',ui-monospace,monospace;
+    --font-sans:'Inter',system-ui,sans-serif;
+    --radius:10px;
+    --maxw:1180px;
+    --dur:.5s;
+  }
+
+  /* ---------- THEME TOKENS ---------- */
+  html[data-theme="dark"]{
+    --bg:#0A121D;
+    --bg-elevated:#0F1B2C;
+    --surface:#111F32;
+    --surface-hover:#16283E;
+    --border:#213248;
+    --border-soft:#182636;
+    --text:#E7EEF7;
+    --text-dim:#8FA3BC;
+    --text-faint:#5A7089;
+    --accent:#00D4FF;
+    --accent-dim:#0A93B3;
+    --accent-soft:rgba(0,212,255,.10);
+    --royal:#3B5BDB;
+    --ok:#2FE6A0;
+    --ok-soft:rgba(47,230,160,.12);
+    --shadow:0 20px 50px -20px rgba(0,0,0,.55);
+    --scan-opacity:.05;
+  }
+  html[data-theme="light"]{
+    --bg:#F3F6FA;
+    --bg-elevated:#FFFFFF;
+    --surface:#FFFFFF;
+    --surface-hover:#F0F4F9;
+    --border:#DBE3ED;
+    --border-soft:#E7ECF3;
+    --text:#0D1B2A;
+    --text-dim:#48586C;
+    --text-faint:#8697AB;
+    --accent:#0B8CB0;
+    --accent-dim:#08677F;
+    --accent-soft:rgba(11,140,176,.10);
+    --royal:#3049B5;
+    --ok:#0FA36B;
+    --ok-soft:rgba(15,163,107,.10);
+    --shadow:0 20px 50px -25px rgba(15,35,60,.25);
+    --scan-opacity:.03;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--font-sans);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    transition:background var(--dur) ease, color var(--dur) ease;
+    overflow-x:hidden;
+  }
+  ::selection{background:var(--accent);color:var(--bg);}
+  a{color:inherit;text-decoration:none;}
+  ul{list-style:none;}
+  img{max-width:100%;display:block;}
+  button{font-family:inherit;cursor:pointer;}
+
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 32px;}
+  section{padding:110px 0;}
+  .eyebrow{
+    font-family:var(--font-mono);
+    font-size:12.5px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--accent);
+    display:flex;align-items:center;gap:10px;
+    margin-bottom:18px;
+  }
+  .eyebrow::before{content:"//";color:var(--text-faint);}
+  h2.section-title{
+    font-family:var(--font-mono);
+    font-weight:700;
+    font-size:clamp(26px,3.4vw,38px);
+    letter-spacing:-.01em;
+    margin-bottom:12px;
+  }
+  .section-sub{color:var(--text-dim);max-width:560px;font-size:15.5px;margin-bottom:56px;}
+
+  /* ---------- FOCUS ---------- */
+  a:focus-visible, button:focus-visible{
+    outline:2px solid var(--accent);
+    outline-offset:3px;
+    border-radius:4px;
+  }
+
+  /* ---------- NAV ---------- */
+  header{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    backdrop-filter:blur(14px) saturate(140%);
+    background:color-mix(in srgb, var(--bg) 78%, transparent);
+    border-bottom:1px solid var(--border-soft);
+  }
+  nav{
+    max-width:var(--maxw);margin:0 auto;padding:0 32px;
+    height:68px;display:flex;align-items:center;justify-content:space-between;
+  }
+  .logo{
+    font-family:var(--font-mono);font-weight:700;font-size:15px;
+    display:flex;align-items:center;gap:8px;
+  }
+  .logo .dot{width:7px;height:7px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 3px var(--ok-soft);}
+  .nav-links{display:flex;gap:36px;align-items:center;}
+  .nav-links a{
+    font-size:13.5px;color:var(--text-dim);font-weight:500;
+    position:relative;padding:4px 0;transition:color .2s;
+  }
+  .nav-links a:hover{color:var(--text);}
+  .nav-links a::after{
+    content:'';position:absolute;left:0;bottom:0;width:0;height:1px;background:var(--accent);
+    transition:width .25s ease;
+  }
+  .nav-links a:hover::after{width:100%;}
+
+  .theme-toggle{
+    display:flex;align-items:center;gap:8px;
+    font-family:var(--font-mono);font-size:12px;color:var(--text-dim);
+    background:var(--surface);border:1px solid var(--border);
+    padding:7px 12px;border-radius:20px;transition:border-color .2s,color .2s;
+  }
+  .theme-toggle:hover{color:var(--text);border-color:var(--accent-dim);}
+  .theme-toggle svg{width:14px;height:14px;}
+
+  .nav-toggle{display:none;background:none;border:none;color:var(--text);}
+  .nav-toggle svg{width:22px;height:22px;}
+
+  /* ---------- HERO ---------- */
+  .hero{padding:168px 0 90px;position:relative;}
+  .hero-grid{
+    display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center;
+  }
+  .hero-copy .eyebrow{margin-bottom:22px;}
+  .hero h1{
+    font-family:var(--font-mono);
+    font-size:clamp(30px,4.6vw,50px);
+    line-height:1.14;font-weight:700;letter-spacing:-.02em;
+    margin-bottom:22px;
+  }
+  .hero h1 .accent{color:var(--accent);}
+  .hero p.lead{
+    font-size:16.5px;color:var(--text-dim);max-width:480px;margin-bottom:34px;
+  }
+  .btn-row{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:52px;}
+  .btn{
+    font-family:var(--font-mono);font-size:13.5px;font-weight:600;
+    padding:13px 22px;border-radius:8px;display:inline-flex;align-items:center;gap:8px;
+    transition:transform .2s ease, box-shadow .2s ease, background .2s ease;
+  }
+  .btn-primary{background:var(--accent);color:var(--bg);}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 10px 30px -8px var(--accent-soft);}
+  .btn-ghost{background:transparent;border:1px solid var(--border);color:var(--text);}
+  .btn-ghost:hover{border-color:var(--accent-dim);transform:translateY(-2px);}
+
+  .stat-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:1px solid var(--border-soft);padding-top:28px;}
+  .stat{padding-right:16px;}
+  .stat .num{font-family:var(--font-mono);font-size:22px;font-weight:700;color:var(--accent);}
+  .stat .label{font-size:11.5px;color:var(--text-faint);letter-spacing:.03em;margin-top:2px;}
+
+  /* terminal card */
+  .terminal{
+    background:var(--bg-elevated);border:1px solid var(--border);
+    border-radius:12px;overflow:hidden;box-shadow:var(--shadow);
+  }
+  .term-bar{
+    display:flex;align-items:center;gap:8px;
+    padding:12px 16px;background:var(--surface);border-bottom:1px solid var(--border);
+  }
+  .term-dot{width:10px;height:10px;border-radius:50%;}
+  .term-dot.r{background:#FF5F57;} .term-dot.y{background:#FEBC2E;} .term-dot.g{background:#28C840;}
+  .term-title{margin-left:auto;font-family:var(--font-mono);font-size:11.5px;color:var(--text-faint);}
+  .term-body{padding:26px 24px;font-family:var(--font-mono);font-size:13.5px;min-height:280px;}
+  .term-line{margin-bottom:14px;color:var(--text-dim);}
+  .term-line .prompt{color:var(--ok);margin-right:8px;}
+  .term-line .out{color:var(--text);font-weight:600;}
+  .term-line .muted{color:var(--text-faint);}
+  .cursor{display:inline-block;width:7px;height:15px;background:var(--accent);vertical-align:middle;animation:blink 1s steps(1) infinite;}
+  @keyframes blink{50%{opacity:0;}}
+
+  .typed-wrap{white-space:pre-wrap;}
+
+  /* ---------- ABOUT ---------- */
+  .about-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:64px;align-items:start;}
+  .avatar-block{
+    aspect-ratio:1/1;border-radius:14px;
+    background:linear-gradient(155deg,var(--surface),var(--bg-elevated));
+    border:1px solid var(--border);
+    display:flex;align-items:center;justify-content:center;
+    position:relative;overflow:hidden;
+  }
+  .avatar-block .initials{
+    font-family:var(--font-mono);font-size:64px;font-weight:800;color:var(--accent);opacity:.9;
+  }
+  .avatar-block::after{
+    content:"";position:absolute;inset:0;
+    background:
+      linear-gradient(var(--border-soft) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border-soft) 1px, transparent 1px);
+    background-size:22px 22px;opacity:var(--scan-opacity);
+  }
+  .about-text p{color:var(--text-dim);margin-bottom:18px;font-size:15.5px;}
+  .about-text strong{color:var(--text);font-weight:600;}
+  .tag-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px;}
+  .tag{
+    font-family:var(--font-mono);font-size:12px;padding:6px 12px;border-radius:6px;
+    background:var(--surface);border:1px solid var(--border);color:var(--text-dim);
+  }
+
+  /* ---------- EXPERIENCE (log style) ---------- */
+  .log{border-left:1px solid var(--border);margin-left:8px;}
+  .log-entry{position:relative;padding:0 0 48px 34px;}
+  .log-entry:last-child{padding-bottom:0;}
+  .log-entry::before{
+    content:"";position:absolute;left:-6px;top:4px;width:11px;height:11px;border-radius:50%;
+    background:var(--bg);border:2px solid var(--accent);
+  }
+  .log-entry.current::before{background:var(--ok);border-color:var(--ok);box-shadow:0 0 0 4px var(--ok-soft);}
+  .log-meta{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:8px;}
+  .log-role{font-family:var(--font-mono);font-weight:700;font-size:17px;}
+  .badge{
+    font-family:var(--font-mono);font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;
+    padding:3px 9px;border-radius:20px;background:var(--ok-soft);color:var(--ok);font-weight:700;
+  }
+  .badge.muted{background:var(--surface);color:var(--text-faint);border:1px solid var(--border);}
+  .log-org{color:var(--accent);font-size:13.5px;font-family:var(--font-mono);margin-bottom:14px;}
+  .log-entry ul{display:flex;flex-direction:column;gap:8px;}
+  .log-entry li{color:var(--text-dim);font-size:14.5px;padding-left:18px;position:relative;}
+  .log-entry li::before{content:"▸";position:absolute;left:0;color:var(--text-faint);}
+
+  /* ---------- SKILLS ---------- */
+  .skill-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;}
+  .skill-card{
+    background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+    padding:24px 20px;transition:border-color .25s, transform .25s;
+  }
+  .skill-card:hover{border-color:var(--accent-dim);transform:translateY(-4px);}
+  .skill-card .sk-head{display:flex;align-items:center;gap:10px;margin-bottom:16px;}
+  .skill-card .sk-icon{width:30px;height:30px;border-radius:7px;background:var(--accent-soft);display:flex;align-items:center;justify-content:center;color:var(--accent);}
+  .skill-card .sk-icon svg{width:16px;height:16px;}
+  .skill-card h3{font-family:var(--font-mono);font-size:13.5px;font-weight:700;}
+  .skill-card ul li{font-size:13px;color:var(--text-dim);padding:4px 0;}
+
+  /* ---------- PROJECTS ---------- */
+  .project-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;}
+  .project-card{
+    background:var(--surface);border:1px solid var(--border);border-radius:12px;
+    padding:28px;transition:transform .25s, border-color .25s, box-shadow .25s;
+    display:flex;flex-direction:column;
+  }
+  .project-card:hover{transform:translateY(-5px);border-color:var(--accent-dim);box-shadow:var(--shadow);}
+  .proj-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:14px;}
+  .proj-top h3{font-family:var(--font-mono);font-size:17px;font-weight:700;}
+  .status-pill{display:flex;align-items:center;gap:6px;font-family:var(--font-mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--text-faint);white-space:nowrap;}
+  .status-pill .d{width:6px;height:6px;border-radius:50%;background:var(--ok);}
+  .status-pill.active .d{background:var(--ok);}
+  .status-pill.personal .d{background:var(--royal);}
+  .project-card p.desc{color:var(--text-dim);font-size:14px;margin-bottom:18px;flex-grow:1;}
+  .stack-row{display:flex;flex-wrap:wrap;gap:8px;}
+  .stack-chip{font-family:var(--font-mono);font-size:11px;color:var(--accent);background:var(--accent-soft);padding:4px 9px;border-radius:5px;}
+
+  /* ---------- EDUCATION ---------- */
+  .edu-card{
+    display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:20px;
+    background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+    padding:30px 32px;
+  }
+  .edu-card h3{font-family:var(--font-mono);font-size:16px;margin-bottom:6px;}
+  .edu-card .school{color:var(--text-dim);font-size:14px;}
+  .edu-score{font-family:var(--font-mono);font-size:26px;color:var(--accent);font-weight:700;text-align:right;}
+  .edu-score .l{display:block;font-size:11px;color:var(--text-faint);font-weight:500;letter-spacing:.04em;}
+  .gate-note{
+    margin-top:18px;display:flex;align-items:center;gap:10px;
+    font-family:var(--font-mono);font-size:12.5px;color:var(--text-dim);
+    border-top:1px solid var(--border-soft);padding-top:18px;
+  }
+
+  /* ---------- CONTACT ---------- */
+  .contact-panel{
+    background:var(--bg-elevated);border:1px solid var(--border);border-radius:12px;
+    padding:48px;box-shadow:var(--shadow);
+  }
+  .contact-top{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:24px;margin-bottom:34px;}
+  .contact-top h2{font-family:var(--font-mono);font-size:clamp(24px,3vw,32px);max-width:480px;}
+  .contact-links{display:flex;flex-direction:column;gap:16px;}
+  .contact-link{
+    display:flex;align-items:center;gap:14px;padding:14px 18px;
+    background:var(--surface);border:1px solid var(--border);border-radius:9px;
+    font-family:var(--font-mono);font-size:14px;transition:border-color .2s,transform .2s;
+  }
+  .contact-link:hover{border-color:var(--accent-dim);transform:translateX(4px);}
+  .contact-link .ic{width:34px;height:34px;border-radius:7px;background:var(--accent-soft);color:var(--accent);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .contact-link .ic svg{width:16px;height:16px;}
+  .contact-link .meta{display:flex;flex-direction:column;gap:2px;}
+  .contact-link .meta .k{color:var(--text-faint);font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;}
+  .contact-links-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+
+  footer{
+    border-top:1px solid var(--border-soft);padding:28px 0;
+    display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;
+  }
+  footer p{font-family:var(--font-mono);font-size:12px;color:var(--text-faint);}
+
+  /* ---------- REVEAL ---------- */
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease, transform .7s ease;}
+  .reveal.in{opacity:1;transform:none;}
+
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none !important;transition:none !important;}
+    .reveal{opacity:1;transform:none;}
+  }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width:900px){
+    .hero-grid{grid-template-columns:1fr;}
+    .about-grid{grid-template-columns:1fr;}
+    .avatar-block{max-width:220px;}
+    .skill-grid{grid-template-columns:repeat(2,1fr);}
+    .project-grid{grid-template-columns:1fr;}
+    .contact-links-grid{grid-template-columns:1fr;}
+  }
+  @media (max-width:720px){
+    .nav-links{
+      position:fixed;top:68px;left:0;right:0;bottom:0;
+      background:var(--bg);border-top:1px solid var(--border-soft);
+      flex-direction:column;padding:28px 32px;gap:22px;
+      transform:translateY(-110%);opacity:0;pointer-events:none;
+      transition:transform .3s ease, opacity .3s ease;
+    }
+    .nav-links.open{transform:translateY(0);opacity:1;pointer-events:auto;}
+    .nav-toggle{display:block;}
+    .theme-toggle span{display:none;}
+    section{padding:74px 0;}
+    .hero{padding-top:132px;}
+    .stat-strip{grid-template-columns:repeat(2,1fr);row-gap:20px;}
+    .skill-grid{grid-template-columns:1fr;}
+    .edu-card{flex-direction:column;}
+    .edu-score{text-align:left;}
+    .contact-panel{padding:30px 22px;}
+    .wrap{padding:0 20px;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <div class="logo"><span class="dot"></span> rs@portfolio:~$</div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#about">About</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div style="display:flex;align-items:center;gap:12px;">
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle color theme">
+        <svg id="themeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg>
+        <span id="themeLabel">dark</span>
+      </button>
+      <button class="nav-toggle" id="navToggle" aria-label="Open menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"></path></svg>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <div class="eyebrow">available for opportunities</div>
+        <h1>I keep <span class="accent">systems online</span><br>and build the tools<br>that run them.</h1>
+        <p class="lead">IT Support Engineer &amp; and building self-hosted apps, monitoring dashboards, and automation on the side.</p>
+        <div class="btn-row">
+          <a href="#projects" class="btn btn-primary">View projects →</a>
+          <a href="#contact" class="btn btn-ghost">Get in touch</a>
+        </div>
+        <div class="stat-strip">
+          <div class="stat"><div class="num"></div><div class="label">HOSTS MONITORED</div></div>
+          <div class="stat"><div class="num"></div><div class="label">DEVICES MANAGED</div></div>
+          <div class="stat"><div class="num"></div><div class="label">ACCESS POINTS</div></div>
+          <div class="stat"><div class="num"></div><div class="label">CGPA · DIPLOMA CSE</div></div>
+        </div>
+      </div>
+
+      <div class="terminal">
+        <div class="term-bar">
+          <span class="term-dot r"></span><span class="term-dot y"></span><span class="term-dot g"></span>
+          <span class="term-title">ritiksaini — ssh</span>
+        </div>
+        <div class="term-body" id="termBody"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="wrap about-grid reveal">
+      <div class="avatar-block"><span class="initials">RS</span></div>
+      <div class="about-text">
+        <div class="eyebrow">about</div>
+        <h2 class="section-title" style="margin-bottom:22px;">Infrastructure by day, Android by design.</h2>
+        <p>I'm <strong>Ritik Saini</strong>, an IT Support Engineer at <strong>Net Prophets Cyberworks</strong>, currently posted at the <strong>Lal Bahadur Shastri National Academy of Administration (LBSNAA)</strong> in Mussoorie.</p>
+        <p>Outside the network closet, I design and build my own tools: Android apps with live monitoring dashboards, Flask-based remote agents, and self-hosted server stacks — usually with a preference for zero-cost, privacy-preserving architecture over relying on third-party cloud services.</p>
+        <p>I hold a <strong>Diploma in Computer Science &amp; Engineering </strong> from Government Polytechnic Srinagar Garhwal</strong> .</p>
+        <div class="tag-row">
+          <span class="tag">Android Development</span>
+          <span class="tag">Enterprise IT Support</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="wrap reveal">
+      <div class="eyebrow">experience</div>
+      <h2 class="section-title">Where I've worked</h2>
+      <p class="section-sub">A running log of roles — most recent first.</p>
+
+      <div class="log">
+        <div class="log-entry current">
+          <div class="log-meta">
+            <span class="log-role">IT Support Engineer &amp; </span>
+            <span class="badge">current</span>
+          </div>
+          <div class="log-org">Net Prophets Cyberworks</div>
+          <ul>
+            <li>Built and maintain <strong>IT Connect</strong>, a production Android app for the IT team with live Nagios monitoring, remote PC control, and an offline AI assistant.</li>
+            <li>Architected a self-hosted CentOS server stack (PocketBase, Nginx, Samba) with primary/backup failover via Keepalived VRRP.</li>
+          </ul>
+        </div>
+        <div class="log-entry">
+          <div class="log-meta">
+            <span class="log-role">Previous Role</span>
+            <span class="badge muted">NIELIT Haridwar</span>
+          </div>
+          <div class="log-org">National Institute of Electronics &amp; Information Technology</div>
+          <ul>
+            <li></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="wrap reveal">
+      <div class="eyebrow">stack</div>
+      <h2 class="section-title">What I work with</h2>
+      <p class="section-sub">Grouped by where it runs — on-device, on-server, or on the wire.</p>
+
+      <div class="skill-grid">
+        <div class="skill-card">
+          <div class="sk-head">
+            <div class="sk-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"></rect><path d="M9 18h6"></path></svg></div>
+            <h3>Mobile &amp; Android</h3>
+          </div>
+          <ul>
+            <li>Kotlin &amp; Java</li>
+            <li>Android SDK, ViewModel architecture</li>
+            <li>SNMP4J switch monitoring</li>
+            <li>Offline-first app design</li>
+          </ul>
+        </div>
+        <div class="skill-card">
+          <div class="sk-head">
+            <div class="sk-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 17l6-6-6-6M12 19h8"></path></svg></div>
+            <h3>Backend &amp; Automation</h3>
+          </div>
+          <ul>
+            <li>Python &amp; Flask</li>
+            <li>PocketBase, REST APIs</li>
+            <li>LLM integration (Ollama, Groq, Gemini)</li>
+            <li>Bash / Termux scripting</li>
+          </ul>
+        </div>
+        <div class="skill-card">
+          <div class="sk-head">
+            <div class="sk-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"></circle><path d="M3 12h18M12 3a15 15 0 010 18a15 15 0 010-18z"></path></svg></div>
+            <h3>Networking</h3>
+          </div>
+          <ul>
+          </ul>
+        </div>
+        <div class="skill-card">
+          <div class="sk-head">
+            <div class="sk-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3 6 6 1-4.5 4.5L18 20l-6-3-6 3 1.5-6.5L3 9l6-1z"></path></svg></div>
+            <h3>Systems &amp; Reliability</h3>
+          </div>
+          <ul>
+            <li>Linux / CentOS administration</li>
+            <li>Nagios monitoring</li>
+            <li>Keepalived / VRRP failover</li>
+            <li>Nginx &amp; Samba/CIFS</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="wrap reveal">
+      <div class="eyebrow">projects</div>
+      <h2 class="section-title">Things I've built</h2>
+      <p class="section-sub">From production tooling used daily personal infrastructure experiments.</p>
+
+      <div class="project-grid">
+        <div class="project-card">
+          <div class="proj-top">
+            <h3>IT Connect</h3>
+            <span class="status-pill active"><span class="d"></span>production</span>
+          </div>
+          <p class="desc">Android app built for — live Nagios monitoring dashboard, PC remote control with touchpad, an SMB/CIFS file browser, an offline AI assistant (Ollama + LLaMA 3), team messaging, and a role-based admin panel on a PocketBase backend.</p>
+          <div class="stack-row">
+            <span class="stack-chip">Kotlin</span><span class="stack-chip">PocketBase</span><span class="stack-chip">Nagios</span><span class="stack-chip">Ollama</span>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="proj-top">
+            <h3>agent_v12.py</h3>
+            <span class="status-pill active"><span class="d"></span>active</span>
+          </div>
+          <p class="desc">Flask-based HTTP remote control agent for Windows machines — mouse/keyboard control, MJPEG screen streaming, audio loopback, file operations, dual-key authentication, and a triple free-API AI rotation system with a local GGUF fallback.</p>
+          <div class="stack-row">
+            <span class="stack-chip">Python</span><span class="stack-chip">Flask</span><span class="stack-chip">llama.cpp</span><span class="stack-chip">MJPEG</span>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="proj-top">
+            <h3>Enterprise Infra Stack</h3>
+            <span class="status-pill active"><span class="d"></span>production</span>
+          </div>
+          <p class="desc">Self-hosted CentOS 9 server powering internal tools — PocketBase with primary/backup failover via Keepalived VRRP, Nginx reverse proxy, a Samba RAID0 file share, and Wake-on-LAN automation triggered from a Termux script.</p>
+          <div class="stack-row">
+            <span class="stack-chip">CentOS</span><span class="stack-chip">Nginx</span><span class="stack-chip">Samba</span><span class="stack-chip">Keepalived</span>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="proj-top">
+            <h3></h3>
+            <span class="status-pill personal"><span class="d"></span>personal</span>
+          </div>
+
+          <div class="stack-row">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section id="education">
+    <div class="wrap reveal">
+      <div class="eyebrow">education</div>
+      <h2 class="section-title">Background</h2>
+      <p class="section-sub">&nbsp;</p>
+
+      <div class="edu-card">
+        <div>
+          <h3>Diploma in Computer Science &amp; Engineering</h3>
+          <div class="school">Government Polytechnic Srinagar Garhwal</div>
+        </div>
+        <div class="edu-score"><span class="l">CGPA</span></div>
+      </div>
+      <div class="gate-note">
+        <span class="d" style="width:6px;height:6px;border-radius:50%;background:var(--ok);display:inline-block;"></span>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="wrap reveal">
+      <div class="contact-panel">
+        <div class="contact-top">
+          <h2>Have infrastructure to fix, an Android app to build, or just want to talk shop?</h2>
+          <a href="#" class="btn btn-primary">Say hello →</a>
+        </div>
+        <div class="contact-links-grid">
+          <a href="mailto:your.email@example.com" class="contact-link">
+            <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"></rect><path d="M2 7l10 6 10-6"></path></svg></span>
+            <span class="meta"><span class="k">email</span>ritiksaini19757@gmail.com</span>
+          </a>
+          <a href="#" class="contact-link">
+            <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.9c0-1 .3-1.6 1-2.2-3.3-.4-6.8-1.6-6.8-7.4 0-1.6.6-3 1.5-4-.2-.4-.7-2 .1-4 0 0 1.3-.4 4.2 1.6 1.2-.3 2.6-.5 3.9-.5s2.7.2 3.9.5c3-2 4.2-1.6 4.2-1.6.8 2 .3 3.6.1 4 1 1 1.5 2.4 1.5 4 0 5.8-3.5 7-6.9 7.4.5.5 1 1.4 1 2.8V22"></path></svg></span>
+            <span class="meta"><span class="k">github</span>github.com/ritik-saini-2002</span>
+          </a>
+          <a href="#" class="contact-link">
+            <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-4 0v7h-4v-7a6 6 0 016-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg></span>
+            <span class="meta"><span class="k">linkedin</span>linkedin.com/in/ritik-saini2002</span>
+          </a>
+          <a href="tel:+910000000000" class="contact-link">
+            <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3.1 19.5 19.5 0 01-6-6 19.8 19.8 0 01-3.1-8.7A2 2 0 014.1 2h3a2 2 0 012 1.7c.1 1 .3 2 .7 3a2 2 0 01-.5 2.1L8 10a16 16 0 006 6l1.2-1.3a2 2 0 012.1-.5c1 .4 2 .6 3 .7a2 2 0 011.7 2z"></path></svg></span>
+            <span class="meta"><span class="k">phone</span>2346</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;width:100%;">
+    <p>© 2026 Ritik Saini · built with a terminal and too much coffee</p>
+    <p>Roorkee, Uttarakhand, India</p>
+  </div>
+</footer>
+
+<script>
+  // ---- Theme toggle (system preference default, in-memory override) ----
+  const root = document.documentElement;
+  const themeToggle = document.getElementById('themeToggle');
+  const themeLabel = document.getElementById('themeLabel');
+  const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+  let currentTheme = prefersLight ? 'light' : 'dark';
+  root.setAttribute('data-theme', currentTheme);
+  themeLabel.textContent = currentTheme;
+
+  themeToggle.addEventListener('click', () => {
+    currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', currentTheme);
+    themeLabel.textContent = currentTheme;
+  });
+
+  // ---- Mobile nav ----
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
+  navToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+
+  // ---- Reveal on scroll ----
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!reduceMotion) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  } else {
+    document.querySelectorAll('.reveal').forEach(el => el.classList.add('in'));
+  }
+
+  // ---- Terminal typing effect ----
+  const termBody = document.getElementById('termBody');
+  const lines = [
+    { prompt: '$', text: 'whoami', type: 'cmd' },
+    { text: 'Ritik Saini', type: 'out' },
+    { prompt: '$', text: 'role --current', type: 'cmd' },
+    { text: 'IT Support Engineer & Android Developer', type: 'out' },
+    { prompt: '$', text: 'location', type: 'cmd' },
+    { text: 'Roorkee, Uttarakhand, India', type: 'out' },
+    { prompt: '$', text: 'status --infra', type: 'cmd' },
+    { text: '450+ hosts online · uptime nominal', type: 'out', ok: true },
+    { prompt: '$', text: 'focus --2026', type: 'cmd' },
+    { text: 'Android tooling · self-hosted infra · 2027 prep', type: 'out' },
+  ];
+
+  function renderStatic() {
+    termBody.innerHTML = lines.map(l => {
+      if (l.type === 'cmd') return `<div class="term-line"><span class="prompt">${l.prompt}</span>${l.text}</div>`;
+      return `<div class="term-line"><span class="out"${l.ok ? ' style="color:var(--ok)"' : ''}>${l.text}</span></div>`;
+    }).join('') + '<span class="cursor"></span>';
+  }
+
+  if (reduceMotion) {
+    renderStatic();
+  } else {
+    let li = 0;
+    function typeLine() {
+      if (li >= lines.length) return;
+      const l = lines[li];
+      const div = document.createElement('div');
+      div.className = 'term-line';
+      if (l.type === 'cmd') {
+        div.innerHTML = `<span class="prompt">${l.prompt}</span><span class="typed"></span>`;
+      } else {
+        div.innerHTML = `<span class="out"${l.ok ? ' style="color:var(--ok)"' : ''}></span>`;
+      }
+      termBody.appendChild(div);
+      const target = div.querySelector('.typed, .out');
+      let ci = 0;
+      const speed = l.type === 'cmd' ? 34 : 14;
+      function typeChar() {
+        if (ci < l.text.length) {
+          target.textContent += l.text[ci];
+          ci++;
+          setTimeout(typeChar, speed);
+        } else {
+          li++;
+          setTimeout(typeLine, l.type === 'cmd' ? 260 : 200);
+        }
+      }
+      typeChar();
+    }
+    typeLine();
+    const cursor = document.createElement('span');
+    cursor.className = 'cursor';
+    setTimeout(() => termBody.appendChild(cursor), lines.length * 500 + 800);
+  }
+</script>
+
+</body>
+</html>
